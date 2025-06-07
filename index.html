@@ -85,6 +85,10 @@
       background-color: #0097a7;
     }
 
+    .copy-btn i {
+      margin-right: 8px;
+    }
+    
     /* Loader CSS */
     .loader {
       border: 4px solid #f3f3f3; /* Light grey background */
@@ -139,8 +143,17 @@
 </head>
 <body>
 
+  <!-- Background Music -->
+  <audio id="backgroundMusic" autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2024/10/17/audio_5c559ab55e.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
   <div id="container">
     <h1><strong>Minecraft Server Status</strong></h1>
+    <button class="copy-btn" onclick="document.getElementById('backgroundMusic').play()">
+      <i class="fas fa-play"></i> Play Music
+    </button>
     <hr>
     <div id="status">
       <div class="loader"></div> <!-- Loader initially shown -->
