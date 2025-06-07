@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Minecraft Server Status</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/67197854">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: url('https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_switch_4/2x1_NSwitch_Minecraft.jpg') no-repeat center center;
+      background-size: cover;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    #container {
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 90%;
+      width: 400px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+      color: #fff;
+      transition: background 0.3s;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 24px;
+    }
+
+    .status {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .online {
+      color: #4caf50;
+    }
+
+    .offline {
+      color: #f44336;
+    }
+
+    img.icon {
+      width: 64px;
+      height: 64px;
+      margin: 10px 0;
+      border-radius: 8px;
+    }
+
+    .info {
+      margin: 8px 0;
+      font-size: 14px;
+    }
+
+    @media (max-width: 500px) {
+      #container {
+        width: 95%;
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+    }
+
+    /* Themes */
+    body.dark {
+      /* The background image is already set; don't override */
+      color: #fff;
+    }
+
+    #container.dark {
+      background-color: rgba(47, 62, 70, 0.85);
+    }
+
+    body.light {
+      /* The background image is already set; don't override */
+      color: #333;
+    }
+
+    #container.light {
+      background-color: rgba(255, 255, 255, 0.85);
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="container">
+    <h1>Minecraft Server Status</h1>
+    <div id="status">Loading...</div>
+  </div>
+
+<script>
+  function getQueryParam(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+  }
+
+  // Handle theme (mode)
+  const mode = getQueryParam('mode');
+  const theme = mode === 'light' ? 'light' : 'dark'; // default = dark
+  document.body.classList.add(theme);
+  document.getElementById('container').classList.add(theme);
+
+  // Server query params
+  const ip = getQueryParam('ip') || 'bedrock.imvickykumar999.online:4000';
+  const type = getQueryParam('type') === 'java' ? 'java' : 'bedrock';
+  const API_URL = `https://api.mcstatus.io/v2/status/${type}/${ip}`;
+
+  fetch(API_URL)
+    .then(response => response.json())
+    .then(data => {
+      const statusDiv = document.getElementById('status');
+      const isOnline = data.online;
+
+      if (isOnline) {
+        const motd = data.motd?.clean || 'No MOTD';
+        const version = data.version?.name_clean || data.version?.name || 'Unknown';
+        const players = `${data.players?.online}/${data.players?.max}`;
+        const gamemode = data.gamemode || '';
+        const icon = data.icon || '';
+
+        statusDiv.innerHTML = `
+          ${icon ? `<img src="${icon}" alt="Server Icon" class="icon">` : ''}
+          <div class="status online">🟢 Online</div>
+          <div class="info"><strong>Type:</strong> ${type.charAt(0).toUpperCase() + type.slice(1)}</div>
+          <div class="info"><strong>IP:</strong> ${ip}</div>
+          <div class="info"><strong>Version:</strong> ${version}</div>
+          <div class="info"><strong>Players:</strong> ${players}</div>
+          ${gamemode ? `<div class="info"><strong>Gamemode:</strong> ${gamemode}</div>` : ''}
+          <div class="info"><strong>MOTD:</strong> ${motd.replace(/\n/g, '<br>')}</div>
+        `;
+      } else {
+        statusDiv.innerHTML = `
+          <div class="status offline">🔴 Offline</div>
+          <div class="info"><strong>IP:</strong> ${ip}</div>
+          <div class="info"><em>The server is currently unreachable.</em></div>
+        `;
+      }
+    })
+    .catch(error => {
+      document.getElementById('status').innerHTML = 'Error fetching server status.';
+      console.error('Fetch Error:', error);
+    });
+</script>
+
+</body>
+</html>
+
