@@ -176,6 +176,19 @@
       font-weight: normal;
     }
 
+.whatsapp_float {
+	position: fixed;
+	bottom: 100px;
+	right: 30px;
+	z-index: 9;
+}
+
+.whatsapp_float a img {
+	width: 70px;
+	height: 70px;
+	border-radius: 50px;
+}
+
   </style>
 </head>
 <body>
@@ -202,6 +215,10 @@
     </div>
   </div>
 
+<div class="whatsapp_float">
+  <a href="https://wa.me/918239957923" target="_blank"><img src="https://avatars.githubusercontent.com/u/67197854" width="20px" height="20px" class="whatsapp_float_btn" alt="bol7 whatsapp"></a>
+</div>
+
   <!-- Footer Section -->
   <footer>
     <p>If you need support, contact us at <a href="mailto:support@imvickykumar999.online">support@imvickykumar999.online</a></p>
@@ -220,8 +237,8 @@
   document.getElementById('container').classList.add(theme);
 
   // Server query params
-  const ip = getQueryParam('ip') || 'bedrock.imvickykumar999.online:4000';
-  const type = getQueryParam('type') === 'java' ? 'java' : 'bedrock';
+  const ip = getQueryParam('ip') || 'other-undergraduate.gl.joinmc.link';
+  const type = getQueryParam('type') === 'bedrock' ? 'bedrock' : 'java';
   const API_URL = `https://api.mcstatus.io/v2/status/${type}/${ip}`;
 
   fetch(API_URL)
@@ -263,7 +280,7 @@
 
   // Function to copy the IP to the clipboard
   function copyIP() {
-    navigator.clipboard.writeText(getQueryParam('ip') || 'bedrock.imvickykumar999.online:4000')
+    navigator.clipboard.writeText(getQueryParam('ip') || 'other-undergraduate.gl.joinmc.link')
       .then(() => {
         alert('IP Address copied to clipboard!');
       })
