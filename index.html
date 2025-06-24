@@ -176,18 +176,26 @@
       font-weight: normal;
     }
 
-.whatsapp_float {
-	position: fixed;
-	bottom: 100px;
-	right: 30px;
-	z-index: 9;
-}
+    /* WhatsApp Float Button */
+    .whatsapp_float {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      z-index: 9;
+    }
 
-.whatsapp_float a img {
-	width: 70px;
-	height: 70px;
-	border-radius: 50px;
-}
+    .whatsapp_float_btn {
+      width: 70px;
+      height: 70px;
+      border-radius: 50px;
+      box-shadow: 0 4px 10px rgba(0, 255, 0, 0.5);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-6px); }
+    }
 
   </style>
 </head>
