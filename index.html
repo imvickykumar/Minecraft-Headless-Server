@@ -250,8 +250,8 @@ h1, .minecraft-heading {
   document.getElementById('container').classList.add(theme);
 
   // Server query params
-  const ip = getQueryParam('ip') || 'other-undergraduate.gl.joinmc.link';
-  const type = getQueryParam('type') === 'bedrock' ? 'bedrock' : 'java';
+  const ip = getQueryParam('ip') || 'bedrock.imvickykumar999.online:4000';
+  const type = getQueryParam('type') === 'java' ? 'java' : 'bedrock';
   const API_URL = `https://api.mcstatus.io/v2/status/${type}/${ip}`;
 
   fetch(API_URL)
@@ -267,17 +267,28 @@ h1, .minecraft-heading {
         const gamemode = data.gamemode || '';
         const icon = data.icon || '';
 
-        statusDiv.innerHTML = `
-          ${icon ? `<img src="${icon}" alt="Server Icon" class="icon">` : ''}
-          <div class="status online">🟢 Online</div>
-          <div class="info"><strong>Type:</strong> ${type.charAt(0).toUpperCase() + type.slice(1)}</div>
-          <div class="info"><strong>${ip}</strong> 
-          <br><br><button class="copy-btn" onclick="copyIP()">📋 Copy IP</button></div>
-          <div class="info"><strong>Version:</strong> ${version}</div>
-          <div class="info"><strong>Players:</strong> ${players}</div>
-          ${gamemode ? `<div class="info"><strong>Gamemode:</strong> ${gamemode}</div>` : ''}
-          <hr><div class="info"><strong>${motd.replace(/\n/g, '<br>')}</strong></div>
-        `;
+	statusDiv.innerHTML = `
+	  <div class="card text-light bg-dark border-light mb-3" style="max-width: 100%;">
+	    <div class="card-header d-flex justify-content-between align-items-center">
+	      <span class="status online">🟢 Online</span>
+	      <span class="badge bg-success">${type.toUpperCase()} Server</span>
+	    </div>
+	    <div class="card-body">
+		<button class="copy-btn mt-2" onclick="copyIP()">📋 Copy IP</button><hr>
+	      <h5 class="card-title">IP Address: <code>${ip}</code></h5>
+	      <p class="card-text">
+		<strong>Version:</strong> <span class="badge bg-info text-dark">${version}</span><br>
+		<strong>Players:</strong> <span class="badge bg-warning text-dark">${players}</span><br>
+		${gamemode ? `<strong>Gamemode:</strong> <span class="badge bg-secondary">${gamemode}</span><br>` : ''}
+		${icon ? `<img src="${icon}" class="icon mt-2 mb-2" alt="Server Icon">` : ''}
+	      </p>
+	      <blockquote class="blockquote bg-secondary text-light p-3 rounded mt-4">
+		<p class="mb-0">${motd.replace(/\n/g, '<br>')}</p>
+	      </blockquote>
+	    </div>
+	  </div>
+	`;
+
       } else {
         statusDiv.innerHTML = `
           <div class="status offline">🔴 Offline</div>
@@ -293,7 +304,7 @@ h1, .minecraft-heading {
 
   // Function to copy the IP to the clipboard
   function copyIP() {
-    navigator.clipboard.writeText(getQueryParam('ip') || 'other-undergraduate.gl.joinmc.link')
+    navigator.clipboard.writeText(getQueryParam('ip') || 'bedrock.imvickykumar999.online:4000')
       .then(() => {
         alert('IP Address copied to clipboard!');
       })
