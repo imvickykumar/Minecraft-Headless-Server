@@ -205,7 +205,7 @@
   </audio>
 
   <div id="container">
-    <h1><strong>Minecraft Server Status</strong></h1>
+    <h1><strong>Book your World</strong></h1>
     <button class="copy-btn" onclick="document.getElementById('backgroundMusic').play()">
       <i class="fas fa-play"></i> Play Music
     </button>
@@ -258,12 +258,12 @@
           ${icon ? `<img src="${icon}" alt="Server Icon" class="icon">` : ''}
           <div class="status online">🟢 Online</div>
           <div class="info"><strong>Type:</strong> ${type.charAt(0).toUpperCase() + type.slice(1)}</div>
-          <div class="info"><strong>IP:</strong> ${ip} 
+          <div class="info"><strong>${ip}</strong> 
           <br><br><button class="copy-btn" onclick="copyIP()">📋 Copy IP</button></div>
           <div class="info"><strong>Version:</strong> ${version}</div>
           <div class="info"><strong>Players:</strong> ${players}</div>
           ${gamemode ? `<div class="info"><strong>Gamemode:</strong> ${gamemode}</div>` : ''}
-          <div class="info"><strong>MOTD:</strong> ${motd.replace(/\n/g, '<br>')}</div>
+          <hr><div class="info"><strong>${motd.replace(/\n/g, '<br>')}</strong></div>
         `;
       } else {
         statusDiv.innerHTML = `
