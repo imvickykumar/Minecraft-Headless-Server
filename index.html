@@ -234,7 +234,7 @@ h1, .minecraft-heading {
 
   <!-- Footer Section -->
   <footer>
-    <p>If you need support, contact us at <a href="mailto:support@imvickykumar999.online">support@imvickykumar999.online</a></p>
+    <p>If you need support, contact us at <a href="mailto:imvickykumar999@gmail.com">imvickykumar999@gmail.com</a></p>
   </footer>
   
 <script>
@@ -250,7 +250,7 @@ h1, .minecraft-heading {
   document.getElementById('container').classList.add(theme);
 
   // Server query params
-  const ip = getQueryParam('ip') || 'bedrock.imvickykumar999.online:4000';
+  const ip = getQueryParam('ip') || 'bedrock.imvickykumar999.online:5625';
   const type = getQueryParam('type') === 'java' ? 'java' : 'bedrock';
   const API_URL = `https://api.mcstatus.io/v2/status/${type}/${ip}`;
 
@@ -304,7 +304,7 @@ h1, .minecraft-heading {
 
   // Function to copy the IP to the clipboard
   function copyIP() {
-    navigator.clipboard.writeText(getQueryParam('ip') || 'bedrock.imvickykumar999.online:4000')
+    navigator.clipboard.writeText(getQueryParam('ip') || 'bedrock.imvickykumar999.online:5625')
       .then(() => {
         alert('IP Address copied to clipboard!');
       })
