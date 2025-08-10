@@ -1,5 +1,12 @@
 # `Setup Bedrock Server`
 
+- `Download` Ubuntu (Linux) : https://www.minecraft.net/en-us/download/server/bedrock
+
+```bash
+mkdir bedrock-server
+unzip bedrock-server-1.21.100.7.zip -d bedrock-server
+```
+
 * Start the server on boot automatically
 * Easily start, stop, restart with simple commands
 * Run the server in the background without needing `screen` or `tmux`
@@ -109,3 +116,67 @@ sudo mv playit-linux-amd64 /usr/local/bin/playit
 playit
 ```
 
+---
+
+### 1. Create the systemd service file
+
+Run:
+
+```bash
+sudo nano /etc/systemd/system/playit.service
+```
+
+Paste this in:
+
+```ini
+[Unit]
+Description=Playit Agent for Port Forwarding
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/playit
+Restart=always
+RestartSec=10
+User=root
+StandardOutput=journal
+StandardError=journal
+WorkingDirectory=/root
+
+[Install]
+WantedBy=multi-user.target
+```
+
+---
+
+### 2. Reload systemd to register the new service
+
+```bash
+sudo systemctl daemon-reload
+```
+
+---
+
+### 3. Start the playit service
+
+```bash
+sudo systemctl start playit.service
+```
+
+---
+
+### 4. Enable it to start on boot
+
+```bash
+sudo systemctl enable playit.service
+```
+
+---
+
+### 5. Check status and logs
+
+```bash
+sudo systemctl status playit.service
+sudo journalctl -u playit.service -f
+```
+
+Adjust port and protocol as needed.
